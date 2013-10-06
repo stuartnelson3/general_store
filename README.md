@@ -1,6 +1,7 @@
 # GeneralStore
 
-TODO: Write a gem description
+General Store is an easy way to store user-specific credentials for an
+app on a user's machine.
 
 ## Installation
 
@@ -18,7 +19,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Set the directory you want your `config.yml` file saved in, and push in
+the values you want to store:
+
+``` ruby
+GeneralStore.create '~/.your_directory' do |gs|
+  gs.consumer_key = 'my key'
+  gs.consumer_secret = 'my secret'
+  gs.oauth_token = @oauth_token
+  gs.oauth_token_secret = @oauth_token_secret
+end
+```
+
+And then access them:
+
+``` ruby
+store = GeneralStore.read '~/.your_directory'
+
+store.consumer_key
+=> 'my key'
+store.consumer_secret
+=> 'my secret'
+```
+
+Apply any arbitrary name to your attributes when going into your store;
+they will be accessible when you take them out:
+
+``` ruby
+GeneralStore.create '~/.some_other_dir' do |gs|
+  gs.SoMethIngCRAZY = 'I couldnt think of a good example'
+end
+
+store = GeneralStore.read '~/.some_other_dir'
+store.SoMethIngCRAZY
+=> 'I couldnt think of a good example'
+```
 
 ## Contributing
 
