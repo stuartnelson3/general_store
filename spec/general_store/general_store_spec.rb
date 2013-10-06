@@ -3,6 +3,17 @@ require 'spec_helper'
 describe GeneralStore do
   subject { GeneralStore }
 
+  after :each do
+    File.delete(project_path + "/config.yml") if File.exist?(project_path + "/config.yml")
+  end
+
+  describe '.read' do
+    it 'puts out an error' do
+      expect { subject.read '~/.doesnt-exist' }
+        .to_not raise_error
+    end
+  end
+
   describe 'private methods' do
     let(:dir) { '~/.test-dir' }
 
