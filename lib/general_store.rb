@@ -38,12 +38,19 @@ class GeneralStore
   end
 
   def set dir
-    File.write self.class.config_file(dir), YAML.dump(config)
+    klass = self.class
+    klass.write_file klass.config_file(dir), config
   end
 
   def self.create_config_file
     check_dir_existence
     check_file_existence
+  end
+
+  def self.write_file file, data
+    File.open file, File::RDWR|File::TRUNC|File::CREAT, 0600 do |config|
+      config.write YAML.dump data
+    end
   end
 
   def self.check_dir_existence
@@ -55,7 +62,7 @@ class GeneralStore
   def self.check_file_existence
     file = config_file @dir
     unless File.exists? file
-      File.write file, YAML.dump({})
+      write_file file, {}
     end
   end
 end
