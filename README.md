@@ -37,9 +37,9 @@ And then access them:
 store = GeneralStore.read '~/.your_directory'
 
 store.consumer_key
-=> 'my key'
+  # => 'my key'
 store.consumer_secret
-=> 'my secret'
+  # => 'my secret'
 ```
 
 Apply any arbitrary name to your attributes when going into your store;
@@ -52,7 +52,7 @@ end
 
 store = GeneralStore.read '~/.some_other_dir'
 store.SoMethIngCRAZY
-=> 'I couldnt think of a good example'
+  # => 'I couldnt think of a good example'
 ```
 
 ## Contributing
