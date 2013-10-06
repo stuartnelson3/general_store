@@ -26,8 +26,8 @@ the values you want to store:
 GeneralStore.create '~/.your_directory' do |gs|
   gs.consumer_key = 'my key'
   gs.consumer_secret = 'my secret'
-  gs.oauth_token = @oauth_token
-  gs.oauth_token_secret = @oauth_token_secret
+  gs.oauth_token = 'oauth token'
+  gs.oauth_token_secret = 'oauth token secret'
 end
 ```
 
