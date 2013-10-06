@@ -7,17 +7,21 @@ describe GeneralStore do
     File.delete(project_path + "/config.yml") if File.exist?(project_path + "/config.yml")
   end
 
-  describe '.read' do
-    it 'puts out an error' do
-      expect { subject.read '~/.doesnt-exist' }
-        .to_not raise_error
-    end
-  end
-
   describe '.create' do
     it 'yields to ostruct' do
       expect {|probe| subject.create(project_path, &probe) }
         .to yield_control
+    end
+  end
+
+  describe '.read' do
+    it 'reads the attributes' do
+      subject.create project_path do |gs|
+        gs.test = 'test'
+      end
+
+      result = subject.read project_path
+      expect(result.test).to eq('test')
     end
   end
 
