@@ -6,6 +6,7 @@ describe GeneralStore do
   before :each do
     subject.create project_path do |gs|
       gs.test = 'test'
+      gs.token = 'token'
     end
   end
 
@@ -24,6 +25,9 @@ describe GeneralStore do
     it 'reads the attributes' do
       expect(subject.read(project_path).test)
         .to eq('test')
+
+      expect(subject.read(project_path).token)
+        .to eq('token')
     end
   end
 
