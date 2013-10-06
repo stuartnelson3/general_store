@@ -3,6 +3,12 @@ require 'spec_helper'
 describe GeneralStore do
   subject { GeneralStore }
 
+  before :each do
+    subject.create project_path do |gs|
+      gs.test = 'test'
+    end
+  end
+
   after :each do
     File.delete(project_path + "/config.yml") if File.exist?(project_path + "/config.yml")
   end
@@ -16,12 +22,20 @@ describe GeneralStore do
 
   describe '.read' do
     it 'reads the attributes' do
-      subject.create project_path do |gs|
-        gs.test = 'test'
-      end
+      expect(subject.read(project_path).test)
+        .to eq('test')
+    end
+  end
 
-      result = subject.read project_path
-      expect(result.test).to eq('test')
+  describe 'world access' do
+    it 'is not world readable' do
+      file = subject.config_file project_path
+      expect(File.world_writable? file).to be_nil
+    end
+
+    it 'is not world writable' do
+      file = subject.config_file project_path
+      expect(File.world_readable? file).to be_nil
     end
   end
 
