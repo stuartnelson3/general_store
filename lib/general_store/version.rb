@@ -1,3 +1,3 @@
-module GeneralStore
+class GeneralStore
   VERSION = "0.0.2"
 end
