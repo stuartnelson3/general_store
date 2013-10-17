@@ -19,6 +19,12 @@ describe GeneralStore do
       expect {|probe| subject.create(project_path, &probe) }
         .to yield_control
     end
+
+    it 'creates deeply nested folders' do
+      expect {
+        subject.create('~/nested/folder/path') {}
+      }.not_to raise_error
+    end
   end
 
   describe '.read' do

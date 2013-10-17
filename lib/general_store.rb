@@ -1,5 +1,6 @@
 require "yaml"
 require "ostruct"
+require "fileutils"
 
 class GeneralStore
   attr_accessor :config
@@ -43,8 +44,8 @@ class GeneralStore
   end
 
   def self.create_config_file
-    check_dir_existence
-    check_file_existence
+    ensure_dir_existence
+    ensure_file_existence
   end
 
   def self.write_file file, data
@@ -53,13 +54,11 @@ class GeneralStore
     end
   end
 
-  def self.check_dir_existence
-    unless Dir.exists? config_dir
-      Dir.mkdir config_dir
-    end
+  def self.ensure_dir_existence
+    FileUtils.mkdir_p config_dir
   end
 
-  def self.check_file_existence
+  def self.ensure_file_existence
     file = config_file @dir
     unless File.exists? file
       write_file file, {}
