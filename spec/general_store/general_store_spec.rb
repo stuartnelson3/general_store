@@ -20,7 +20,12 @@ describe GeneralStore do
         .to yield_control
     end
 
-    it 'creates deeply nested folders' do
+    it 'creates the config.yml file' do
+      file = GeneralStore.config_file project_path
+      expect(File.exists? file).to be_true
+    end
+
+    it 'handles deeply nested folders' do
       expect {
         subject.create('~/nested/folder/path') {}
       }.not_to raise_error

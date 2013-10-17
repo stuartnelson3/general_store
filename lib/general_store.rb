@@ -3,28 +3,28 @@ require "ostruct"
 require "fileutils"
 
 class GeneralStore
-  attr_accessor :config
+  attr_accessor :config, :dir
 
   def self.read dir_name
-    new YAML.load_file config_file dir_name
+    new YAML.load_file(config_file(dir_name)), dir_name
   rescue Errno::ENOENT
     puts 'You need to setup your General Store first!'
   end
 
   def self.create dir, ostruct = OpenStruct.new
-    @dir = dir
-    create_config_file
+    create_config_file dir
     yield ostruct
-    new(ostruct.to_h).set dir
+    new(ostruct.to_h, dir).set
   end
 
-  def set dir
+  def set
     klass = self.class
     klass.write_file klass.config_file(dir), config
   end
 
-  def initialize config_contents
+  def initialize config_contents, dir
     self.config = config_contents
+    self.dir = dir
     config.each do |k,v|
       accessor = k.to_sym
       self.class.class_eval do
@@ -39,13 +39,13 @@ class GeneralStore
     File.expand_path File.join dir_name, "config.yml"
   end
 
-  def self.config_dir
-    File.expand_path @dir
+  def self.config_dir dir
+    File.expand_path dir
   end
 
-  def self.create_config_file
-    ensure_dir_existence
-    ensure_file_existence
+  def self.create_config_file dir
+    ensure_dir_existence dir
+    ensure_file_existence dir
   end
 
   def self.write_file file, data
@@ -54,12 +54,12 @@ class GeneralStore
     end
   end
 
-  def self.ensure_dir_existence
-    FileUtils.mkdir_p config_dir
+  def self.ensure_dir_existence dir
+    FileUtils.mkdir_p config_dir dir
   end
 
-  def self.ensure_file_existence
-    file = config_file @dir
+  def self.ensure_file_existence dir
+    file = config_file dir
     unless File.exists? file
       write_file file, {}
     end
