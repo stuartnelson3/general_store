@@ -7,7 +7,8 @@
 require 'general_store'
 
 def project_path
-  File.expand_path("../..", __FILE__)
+  path = File.expand_path("../..", __FILE__)
+  path + '/tmp'
 end
 
 RSpec.configure do |config|
