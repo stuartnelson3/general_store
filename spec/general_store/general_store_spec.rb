@@ -12,6 +12,7 @@ describe GeneralStore do
 
   after :each do
     File.delete(project_path + "/config.yml") if File.exist?(project_path + "/config.yml")
+    Dir.rmdir project_path if Dir.exist? project_path
   end
 
   describe '.create' do
