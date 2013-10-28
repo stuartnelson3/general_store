@@ -14,7 +14,7 @@ class GeneralStore
   def self.create dir, ostruct = OpenStruct.new
     create_config_file dir
     yield ostruct
-    new(ostruct.to_h, dir).set
+    new(ostruct.marshal_dump, dir).set
   end
 
   def set
