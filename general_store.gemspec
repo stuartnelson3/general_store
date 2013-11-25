@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["stuartnelson3@gmail.com"]
   spec.description   = %q{Get what you need from the General Store}
   spec.summary       = %q{Directory and attributes go in, attributes come out}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/stuartnelson3/general_store"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
