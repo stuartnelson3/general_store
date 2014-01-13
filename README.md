@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/stuartnelson3/general_store.png?branch=master)](https://travis-ci.org/stuartnelson3/general_store)
-
 # GeneralStore
+[![Build Status](https://travis-ci.org/stuartnelson3/general_store.png?branch=master)](https://travis-ci.org/stuartnelson3/general_store)
 
 General Store is an easy way to store user-specific credentials for an
 app on a user's machine.
